@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} Lista de Clientes {% endblock %}
+
+{% block main %}
+
+<h1>Listagem</h1>
+{% if user.is_authenticated %}
+  <p>Olá {{user.username}}</p>
+{% endif %}
+<div id="root">
+  <div>
+    <a class="badge badge-pill badge-danger" href="{% url 'logout' %}">Sair</a>
+    <br>
+    <br>
+    <button name="button" class="btn btn-primary"><a class="badge badge-primary" href="{% url 'personNew' %}">Novo Cliente</a></button>
+  </div>
+  <br>
+  <table class="table table-striped table-dark">
+     <thead>
+       <tr>
+         <th>Nome</th>
+         <th>Ação</th>
+       </tr>
+     </thead>
+   {% for pessoa in persons %}
+   <tbody>
+     <tr>
+       <th>
+         <a class="badge badge-pill badge-info" href="{% url 'personUpdate' pessoa.id %}">{{pessoa.first_name}} {{pessoa.last_name}}</a>
+       </th>
+       <th>
+         <a class="badge badge-pill badge-danger" href="{% url 'personDelete' pessoa.id %}"><i class="fa fa-trash"></i> Deletar</a>
+
+       </th>
+     </tr>
+   </tbody>
+    {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<footer class="footer mt-auto py-3">
+  <div class="container">
+    <span class="text-muted">Desenvolvido por Marcelo para fins de estudo de Django e Python</span>
+  </div>
+</footer>
+{% endblock %}
